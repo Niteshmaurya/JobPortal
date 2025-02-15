@@ -8,8 +8,7 @@ const connectDb = async () => {
         mongoose.connection.on('error', (err) => console.log('MongoDB connection error:', err));
 
         await mongoose.connect(`${process.env.MONGODB_URI}/Job-Portal2`, {
-            useNewUrlParser: true,
-            useUnifiedTopology: true,
+
         });
 
     } catch (error) {
