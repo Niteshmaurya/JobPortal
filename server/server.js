@@ -5,11 +5,14 @@ import connectDb from './config/db.js'
 import './config/instrument.js'
 import * as Sentry from "@sentry/node";
 import { clerkWebhooks } from './controllers/webhooks.js'
+import companyRoutes from './routes/companyRoutes.js'
+import connectCloudinary from './config/cloudinary.js'
 
 const app = express()
 
 //  connect to db
 await connectDb()
+await connectCloudinary
 
 app.use(cors())
 app.use(express.json())
@@ -19,6 +22,7 @@ app.get("/debug-sentry", function mainHandler(req, res) {
     throw new Error("My first Sentry error!");
 });
 app.post('/webhooks', clerkWebhooks)
+app.use('/api/company', companyRoutes)
 
 
 

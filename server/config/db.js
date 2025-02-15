@@ -1,12 +1,22 @@
 import mongoose from "mongoose";
 
-
 // function to connect to mongoDb database
 const connectDb = async () => {
-    mongoose.connection.on('connected', () => console.log('database connected'))
+    try {
+        mongoose.connection.on('connected', () => console.log('Database connected'));
 
-    await mongoose.connect(`${process.env.MONGODB_URI}/Job-Portal`)
+        mongoose.connection.on('error', (err) => console.log('MongoDB connection error:', err));
+
+        await mongoose.connect(`${process.env.MONGODB_URI}/Job-Portal2`, {
+            useNewUrlParser: true,
+            useUnifiedTopology: true,
+        });
+
+    } catch (error) {
+        console.error('Error connecting to the database:', error);
+        process.exit(1); // Exit the process with failure code
+    }
 }
 
-
-export default connectDb  
+export default connectDb;
+Us
