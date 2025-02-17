@@ -13,7 +13,7 @@ export const clerkWebhooks = async (req, res) => {
         await whook.verify(JSON.stringify(req.body), {
             "svix-id": req.headers["svix-id"],
             "svix-timestamp": req.headers["svix-timestamp"],
-            "svix-signature": req.headers["svix-signature"],
+            "svix-signature": req.headers["svix-signature"]
         })
 
 
@@ -23,7 +23,6 @@ export const clerkWebhooks = async (req, res) => {
         // switch Cases for different Events
         switch (type) {
             case 'user.created': {
-
 
                 const userData = {
                     _id: data.id,
