@@ -9,10 +9,14 @@ import companyRoutes from './routes/companyRoutes.js'
 import connectCloudinary from './config/cloudinary.js'
 
 const app = express()
+// import dotenv from 'dotenv';
+// dotenv.config();
+
 
 //  connect to db
 await connectDb()
 await connectCloudinary
+console.log("web hook secret key " + process.env.CLERK_WEBHOOK_SECRET);
 
 app.use(cors())
 app.use(express.json())
