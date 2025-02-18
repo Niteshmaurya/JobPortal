@@ -1,5 +1,5 @@
 import { Webhook } from "svix";
-import User from "../models/temp.js";
+import User from "../models/User.js";
 // import User from "../models/user";
 import dotenv from 'dotenv';
 dotenv.config();
