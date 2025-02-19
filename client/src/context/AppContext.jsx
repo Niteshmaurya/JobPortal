@@ -74,11 +74,30 @@ export const AppContextProvider = (props) => {
         }
     }
 
+
+
+    // checking user initiallization
+    const { userR, isLoaded } = useUser();
+
+    useEffect(() => {
+        if (isLoaded && userR) {
+            console.log("User details after signup:", userR);
+        } else {
+            console.log("User is not logged in yet");
+        }
+    }, [isLoaded, userR]);
+
+
     // function to fetch userData
     const fetchUserData = async () => {
         try {
 
             const token = await getToken();
+            console.log("Retrieved Token:", token);
+
+            if (!token) {
+                throw new Error("Token not found, user might not be authenticated");
+            }
 
             const { data } = await axios.get(backendUrl + '/api/users/user', {
                 headers: { Authorization: `Bearer ${token}` }
@@ -88,7 +107,7 @@ export const AppContextProvider = (props) => {
                 setUserData(data.user)
             }
             else {
-                toast.error(data.message)
+                toast.error(data.message + " hello")
             }
 
         } catch (error) {

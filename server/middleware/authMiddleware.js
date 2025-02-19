@@ -6,23 +6,29 @@ export const protectCompany = async (req, res, next) => {
     const token = req.headers.token
 
     if (!token) {
-        res.json({
+        return res.status(401).json({
             success: false,
-            meassage: 'Not authorized login again'
+            message: 'Not authorized, login again'
         })
     }
+
     try {
         const decoded = jwt.verify(token, process.env.JWT_SECRET)
 
         req.company = await Company.findById(decoded.id).select('-password')
 
+        if (!req.company) {
+            return res.status(404).json({
+                success: false,
+                message: 'Company not found'
+            })
+        }
+
         next()
-    }
-    catch (err) {
-        res.json({
+    } catch (err) {
+        return res.status(401).json({
             success: false,
-            message: err.meassage
+            message: err.message || 'Token verification failed'
         })
     }
-
 }
