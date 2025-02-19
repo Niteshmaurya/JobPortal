@@ -43,7 +43,7 @@ const RecruiterLogin = () => {
                 }
 
             }
-            else {
+            else {      // this is for signUp page 
 
                 const formData = new FormData()
                 formData.append('name', name)

@@ -15,7 +15,7 @@ import { ToastContainer, toast } from 'react-toastify';
 
 const App = () => {
 
-  const { showRecuirterLogin } = useContext(AppContext)
+  const { showRecuirterLogin, companyToken } = useContext(AppContext)
 
   return (
     <div>
@@ -26,11 +26,14 @@ const App = () => {
         <Route path='/apply-job/:id' element={<ApplyJob />} />
         <Route path='/applications' element={<Applications />} />
         <Route path='/dashboard' element={<Dashboard />} >
+          {companyToken ?
+            <>
+              <Route path='add-job' element={<AddJob />} />
+              <Route path='manage-job' element={<ManageJobs />} />
+              <Route path='view-applications' element={<ViewApplications />} />
 
-          <Route path='add-job' element={<AddJob />} />
-          <Route path='manage-job' element={<ManageJobs />} />
-          <Route path='view-applications' element={<ViewApplications />} />
-
+            </> : null
+          }
         </Route>
 
 
