@@ -12,7 +12,7 @@ router.post('/apply', applyForJob)
 
 
 // get applied jobs data
-router.post('/applications', getUserJobApplications)
+router.get('/applications', getUserJobApplications)
 
 
 // update user profile (resume)

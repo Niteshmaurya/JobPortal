@@ -7,7 +7,7 @@ import { v2 as cloudinary } from "cloudinary"
 // get user data 
 export const getUserData = async (req, res) => {
 
-    const userId = req.auth?.userId
+    const userId = req.auth?.userId   // this is string 
 
     if (!userId) {
         return res.status(400).json({
@@ -23,7 +23,7 @@ export const getUserData = async (req, res) => {
         if (!user) {
             return res.json({
                 success: false,
-                message: 'user not found'
+                message: 'user not found now'
             })
         }
         res.json({
@@ -47,7 +47,7 @@ export const applyForJob = async (req, res) => {
     const { jobId } = req.body
     console.log("this is jobId in applyForJOb" + req.body)
 
-    const userId = req.auth.userId      // problamatic for now
+    const userId = req.auth && req.auth.userId      // problamatic for now
     console.log("this is whole req.auth  " + req.auth)
     console.log("this is userId " + userId)
     try {
@@ -100,8 +100,8 @@ export const getUserJobApplications = async (req, res) => {
 
     try {
 
-        const userId = req.auth.userId
-        const application = await JobApplication.find(userId)
+        const { userId } = req.auth
+        const application = await JobApplication.find({ userId })
             .populate('companyId', 'name email image')
             .populate('jobId', 'title description location category level salary')
             .exec()
