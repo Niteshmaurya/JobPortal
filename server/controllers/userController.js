@@ -47,7 +47,9 @@ export const applyForJob = async (req, res) => {
     const { jobId } = req.body
     console.log("this is jobId in applyForJOb" + req.body)
 
-    const userId = req.auth.userId
+    const userId = req.auth.userId      // problamatic for now
+    console.log("this is whole req.auth  " + req.auth)
+    console.log("this is userId " + userId)
     try {
         const isAlreadyApplied = await JobApplication.find({ jobId, userId })
 
