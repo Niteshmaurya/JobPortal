@@ -73,7 +73,7 @@ export const applyForJob = async (req, res) => {
         await JobApplication.create({
             companyId: jobData.companyId,
             userId,
-            jobId: req.body,
+            jobId,
             date: Date.now()
         })
 
