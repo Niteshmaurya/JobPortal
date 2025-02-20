@@ -44,7 +44,8 @@ export const getUserData = async (req, res) => {
 // apply for a job
 export const applyForJob = async (req, res) => {
 
-    const { jobId } = req.body
+    const { jobId } = req.body.jobId
+    console.log("this is jobId in applyForJOb" + req.body)
 
     const userId = req.auth.userId
     try {
