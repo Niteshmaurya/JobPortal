@@ -147,7 +147,7 @@ export const AppContextProvider = (props) => {
         setIsSearched,
         jobs, setJobs, showRecuirterLogin, setShowRecuirterLogin,
         companyToken, setCompanyToken, companyData, setCompanyData,
-        backendUrl
+        backendUrl, userData, setUserData, userApplications, setUserApplications, fetchUserData
     };
 
     return (
