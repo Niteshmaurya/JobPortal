@@ -17,7 +17,7 @@ export const getUserData = async (req, res) => {
     }
 
     try {
-        const user = await User.findById({ userId })
+        const user = await User.findById(userId)
 
 
         if (!user) {
@@ -72,7 +72,7 @@ export const applyForJob = async (req, res) => {
             companyId: jobData.companyId,
             userId,
             jobId: req.body,
-            Date: Date.now()
+            date: Date.now()
         })
 
         return res.json({
@@ -99,7 +99,7 @@ export const getUserJobApplications = async (req, res) => {
     try {
 
         const userId = req.auth.userId
-        const application = await JobApplication.find({ userId })
+        const application = await JobApplication.find(userId)
             .populate('companyId', 'name email image')
             .populate('jobId', 'title description location category level salary')
             .exec()
