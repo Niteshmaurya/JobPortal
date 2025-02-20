@@ -17,7 +17,7 @@ export const getUserData = async (req, res) => {
     }
 
     try {
-        const user = await User.findById(userId)
+        const user = await User.findById({ userId })
 
 
         if (!user) {
@@ -44,7 +44,7 @@ export const getUserData = async (req, res) => {
 // apply for a job
 export const applyForJob = async (req, res) => {
 
-    const { jobId } = req.body.jobId
+    const { jobId } = req.body
     console.log("this is jobId in applyForJOb" + req.body)
 
     const userId = req.auth.userId
