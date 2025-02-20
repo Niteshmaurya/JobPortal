@@ -7,7 +7,14 @@ import { v2 as cloudinary } from "cloudinary"
 // get user data 
 export const getUserData = async (req, res) => {
 
-    const userId = req.auth.userId
+    const userId = req.auth?.userId
+
+    if (!userId) {
+        return res.status(400).json({
+            success: false,
+            message: 'User ID is missing from the request'
+        });
+    }
 
     try {
         const user = await User.findById(userId)
