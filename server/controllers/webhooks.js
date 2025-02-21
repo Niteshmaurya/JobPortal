@@ -5,6 +5,8 @@ dotenv.config();
 
 // api controller function to manage clerk user with db
 export const clerkWebhooks = async (req, res) => {
+    console.log("Received webhook body:", req.body);
+
     try {
         // Create a Svix instance with Clerk webhook secret
         const whook = new Webhook(process.env.CLERK_WEBHOOK_SECRET);
@@ -26,9 +28,9 @@ export const clerkWebhooks = async (req, res) => {
         switch (type) {
             case 'user.created': {
                 const userData = {
-                    _id: String(data.id), // Ensuring _id is a string
+                    _id: data.id, // Ensuring _id is a string
                     email: data.email_addresses[0].email_address,
-                    name: `${data.first_name} ${data.last_name}`, // String interpolation
+                    name: data.first_name + " " + data.last_name, // String interpolation
                     image: data.image_url,
                     resume: '' // Default value for resume
                 };
@@ -41,17 +43,17 @@ export const clerkWebhooks = async (req, res) => {
             case 'user.updated': {
                 const userData = {
                     email: data.email_addresses[0].email_address,
-                    name: `${data.first_name} ${data.last_name}`,
+                    name: data.first_name + " " + data.last_name,
                     image: data.image_url,
                 };
 
-                await User.findByIdAndUpdate(String(data.id), userData);
+                await User.findByIdAndUpdate(data.id, userData);
                 console.log("User updated: ", userData);
                 res.status(200).json({ success: true, message: 'User updated successfully' });
                 break;
             }
             case 'user.deleted': {
-                await User.findByIdAndDelete(String(data.id));
+                await User.findByIdAndDelete(data.id);
                 console.log("User deleted: ", data.id);
                 res.status(200).json({ success: true, message: 'User deleted successfully' });
                 break;

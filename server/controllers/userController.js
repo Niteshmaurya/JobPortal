@@ -7,7 +7,9 @@ import { v2 as cloudinary } from "cloudinary"
 // get user data 
 export const getUserData = async (req, res) => {
 
-    const userId = req.auth?.userId   // this is string 
+    // const userId = req.auth?.userId   // this is string 
+    const userId = req.auth?.userId || req.body.userId || req.query.userId;
+    console.log("this is user auth " + req.auth.userId)
 
     if (!userId) {
         return res.status(400).json({
@@ -100,11 +102,13 @@ export const getUserJobApplications = async (req, res) => {
 
     try {
 
-        const { userId } = req.auth
-        const application = await JobApplication.find({ userId })
+        const userId = req.auth
+        const application = await JobApplication.find(userId)
             .populate('companyId', 'name email image')
             .populate('jobId', 'title description location category level salary')
             .exec()
+
+        console.log("application " + application)
 
 
         if (!application) {
