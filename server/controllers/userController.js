@@ -10,6 +10,7 @@ export const getUserData = async (req, res) => {
     const userId = req.auth?.userId   // this is string 
     console.log("this is userId L " + userId)
 
+
     if (!userId) {
         return res.status(400).json({
             success: false,
@@ -102,11 +103,13 @@ export const getUserJobApplications = async (req, res) => {
 
     try {
 
-        const { userId } = req.auth
-        const application = await JobApplication.find({ userId })
+        const userId = req.auth
+        const application = await JobApplication.find(userId)
             .populate('companyId', 'name email image')
             .populate('jobId', 'title description location category level salary')
             .exec()
+
+        console.log("application " + application)
 
 
         if (!application) {

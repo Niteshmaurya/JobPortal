@@ -1,12 +1,10 @@
 import jwt from 'jsonwebtoken'
 import Company from '../models/Company.js'
-import { ClerkExpressWithAuth } from '@clerk/clerk-sdk-node';
 import express from 'express'
 
 
 const app = express()
 
-app.use(ClerkExpressWithAuth());
 
 
 export const protectCompany = async (req, res, next) => {
@@ -22,7 +20,7 @@ export const protectCompany = async (req, res, next) => {
 
     try {
         const decoded = jwt.verify(token, process.env.JWT_SECRET)
-        console.log("this is decoded data from authMiddleware protect company " + decoded.id)
+
 
         req.company = await Company.findById(decoded.id).select('-password')
 
