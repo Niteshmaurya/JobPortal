@@ -5,6 +5,7 @@ dotenv.config();
 
 // api controller function to manage clerk user with db
 export const clerkWebhooks = async (req, res) => {
+    console.log("Webhook received");
     try {
         // Create a Svix instance with Clerk webhook secret
         const whook = new Webhook(process.env.CLERK_WEBHOOK_SECRET);
