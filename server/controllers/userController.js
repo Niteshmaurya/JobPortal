@@ -7,9 +7,9 @@ import { v2 as cloudinary } from "cloudinary"
 // get user data 
 export const getUserData = async (req, res) => {
 
-    // const userId = req.auth?.userId   // this is string 
-    const userId = req.auth?.userId || req.body.userId || req.query.userId;
-    console.log("this is user auth " + req.auth.userId)
+    const userId = req.auth?.userId   // this is string 
+    console.log("this is userId L " + userId)
+
 
     if (!userId) {
         return res.status(400).json({
@@ -20,6 +20,7 @@ export const getUserData = async (req, res) => {
 
     try {
         const user = await User.findById(userId)
+        console.log("this is user in try " + user)
 
 
         if (!user) {
@@ -36,7 +37,7 @@ export const getUserData = async (req, res) => {
     } catch (error) {
         res.json({
             success: false,
-            message: error.message
+            message: "t " + error.message
         })
     }
 

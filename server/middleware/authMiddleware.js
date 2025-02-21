@@ -20,7 +20,7 @@ export const protectCompany = async (req, res, next) => {
 
     try {
         const decoded = jwt.verify(token, process.env.JWT_SECRET)
-        // console.log("this is decoded data from authMiddleware protect company " + decoded)
+
 
         req.company = await Company.findById(decoded.id).select('-password')
 
