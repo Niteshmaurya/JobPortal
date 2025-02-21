@@ -23,7 +23,7 @@ const app = express()
 //  connect to db
 await connectDb()
 await connectCloudinary()
-console.log("web hook secret key " + process.env.CLERK_WEBHOOK_SECRET);
+// console.log("web hook secret key " + process.env.CLERK_WEBHOOK_SECRET);
 
 app.use(cors())
 app.use(express.json())
